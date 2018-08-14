@@ -7,11 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
-
     use Sluggable;
 
     protected $fillable = ['name','active'];
-
 
     public function sluggable(): array
     {
@@ -20,5 +18,10 @@ class Category extends Model
                 'source' => 'name'
             ]
         ];
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
     }
 }
