@@ -13,21 +13,23 @@ use Illuminate\Http\Request;
 class ProductInputController extends Controller
 {
 
-    public function index(Product $product)
+    public function index()
     {
-        return new ProductInputResource($product);
+        $inputs = ProductInput::with('product')->paginate(20);
+
+        return ProductInputResource::collection($inputs);
     }
 
-    public function store(ProductInputRequest $request, Product $product)
+    public function store(ProductInputRequest $request)
     {
-        $product->inputs()->create($request->all());
+        $input = ProductInput::create($request->all());
 
-        $product->stock += $request->amount;
-        $product->save();
+        return new ProductInputResource($input);
+    }
 
-        $product->refresh();
-
-        return new ProductResource($product);
+    public function show(ProductInput $input)
+    {
+        return new ProductInputResource($input);
     }
 
 }
