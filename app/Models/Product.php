@@ -29,4 +29,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductInput::class);
     }
+
+    public function photos()
+    {
+        return $this->hasMany(ProductPhoto::class);
+    }
 }
