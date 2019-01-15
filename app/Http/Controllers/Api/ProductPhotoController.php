@@ -6,6 +6,7 @@ use CodeShopping\Http\Controllers\Controller;
 use CodeShopping\Http\Requests\ProductPhotoRequest;
 use CodeShopping\Http\Resources\ProductPhotoCollection;
 use CodeShopping\Http\Resources\ProductPhotoResource;
+use CodeShopping\Http\Resources\ProductResource;
 use CodeShopping\Models\Product;
 use CodeShopping\Models\ProductPhoto;
 use Illuminate\Http\Request;
@@ -34,13 +35,23 @@ class ProductPhotoController extends Controller
         return new ProductPhotoResource($photo);
     }
 
-    public function update(Request $request, ProductPhoto $photo)
+    public function update(Request $request, Product $product, ProductPhoto $photo)
     {
-        //
+        if($photo->product_id != $product->id)
+            abort(404, 'Photo not found');
+
+        ProductPhoto::updatePhoto($photo, $request->photo);
+
+        return new ProductPhotoResource($photo->refresh());
     }
 
-    public function destroy(ProductPhoto $photo)
+    public function destroy(Product $product, ProductPhoto $photo)
     {
-        //
+        if($photo->product_id != $product->id)
+            abort(404, 'Photo not found');
+
+        ProductPhoto::deletePhoto($photo);
+
+        return response()->json([new ProductResource($product)],204);
     }
 }
