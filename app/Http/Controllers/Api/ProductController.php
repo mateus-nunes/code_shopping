@@ -50,6 +50,12 @@ class ProductController extends Controller
         return response()->json([],204);
     }
 
+    public function restore(Product $product)
+    {
+        $product->restore();
+        return response()->json([],204);
+    }
+
     private function onlyTrashedIfRequested(Builder $query)
     {
         if(Request::get('trashed') == 1)
