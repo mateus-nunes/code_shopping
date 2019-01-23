@@ -35,12 +35,12 @@ class ProductPhotoController extends Controller
         return new ProductPhotoResource($photo);
     }
 
-    public function update(Request $request, Product $product, ProductPhoto $photo)
+    public function update(ProductPhotoRequest $request, Product $product, ProductPhoto $photo)
     {
         if($photo->product_id != $product->id)
             abort(404, 'Photo not found');
 
-        ProductPhoto::updatePhoto($photo, $request->photo);
+        $photo->updateWithPhoto($request->file('photo'));
 
         return new ProductPhotoResource($photo->refresh());
     }
@@ -50,7 +50,7 @@ class ProductPhotoController extends Controller
         if($photo->product_id != $product->id)
             abort(404, 'Photo not found');
 
-        ProductPhoto::deletePhoto($photo);
+        $photo->deleteWithPhoto();
 
         return response()->json([new ProductResource($product)],204);
     }

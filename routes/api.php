@@ -26,9 +26,7 @@ Route::group(['namespace' => 'Api','as' => 'api.'], function (){
 
     Route::resource('products.categories', 'ProductCategoryController',['only' => ['index','store','destroy']]);
 
-    //Utilizado o post para atualizar a foto por que o PUT não aceita o envio de arquivos
-    Route::post('/products/{product}/photos/{photo}','ProductPhotoController@update')->name('products.photos.update');
-    Route::resource('products.photos', 'ProductPhotoController',['except' => ['create','edit','put']]);
+    Route::resource('products.photos', 'ProductPhotoController',['except' => ['create','edit']]);
 
     Route::resource('inputs', 'ProductInputController',['only' => ['index','store','show']]);
 

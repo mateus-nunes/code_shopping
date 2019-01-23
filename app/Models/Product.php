@@ -4,12 +4,15 @@ namespace CodeShopping\Models;
 
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-    use Sluggable;
+    use Sluggable, SoftDeletes;
 
     protected $fillable = ['name','price','description','stock','active'];
+
+    protected $dates = ['deleted_at'];
 
     public function sluggable(): array
     {

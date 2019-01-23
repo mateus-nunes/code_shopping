@@ -3,6 +3,7 @@
 namespace CodeShopping\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Collection;
 
 class ProductPhoto extends Model
@@ -15,7 +16,7 @@ class ProductPhoto extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class)->withTrashed();
     }
 
     public static function photosPath($productId)
@@ -94,37 +95,36 @@ class ProductPhoto extends Model
         return asset('/storage/' . $path . '/' . $this->file_name);
     }
 
-    public static function updatePhoto(ProductPhoto $photo, $file)
+    public function updateWithPhoto(UploadedFile $file)
     {
         try{
             \DB::beginTransaction();
 
-            self::uploadSingleFile($photo->product_id, $file);
+            self::uploadFiles($this->product_id, [$file]);
 
-            $old_file = $photo->file_name;
+            $old_file = $this->file_name;
 
-            $photo->file_name = $file->hashName();
-            $photo->save();
+            $this->file_name = $file->hashName();
+            $this->save();
 
-            self::deleteSingleFile($photo->product_id, $old_file);
+            self::deleteSingleFile($this->product_id, $old_file);
 
             \DB::commit();
         }catch (\Exception $e){
             \DB::rollBack();
-            self::deleteSingleFile($photo->product_id, $file);
             throw $e;
         }
     }
 
-    public static function deletePhoto(ProductPhoto $photo)
+    public function deleteWithPhoto()
     {
         try{
             \DB::beginTransaction();
 
-            $file_name = $photo->file_name;
-            $product_id = $photo->product_id;
+            $file_name = $this->file_name;
+            $product_id = $this->product_id;
 
-            $photo->delete();
+            $this->delete();
 
             self::deleteSingleFile($product_id, $file_name);
 
