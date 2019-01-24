@@ -5,12 +5,13 @@ namespace CodeShopping\Http\Controllers\Api;
 use CodeShopping\Http\Requests\ProductRequest;
 use CodeShopping\Http\Resources\ProductResource;
 use CodeShopping\Models\Product;
-use Illuminate\Database\Eloquent\Builder;
 use CodeShopping\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Request;
+use CodeShopping\Traits\OnlyTrashed;
 
 class ProductController extends Controller
 {
+
+    use OnlyTrashed;
 
     public function index()
     {
@@ -54,15 +55,5 @@ class ProductController extends Controller
     {
         $product->restore();
         return response()->json([],204);
-    }
-
-    private function onlyTrashedIfRequested(Builder $query)
-    {
-        if(Request::get('trashed') == 1)
-        {
-            $query = $query->onlyTrashed();
-        }
-
-        return $query;
     }
 }
