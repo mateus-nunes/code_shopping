@@ -1,0 +1,57 @@
+<div class="row">
+  <h1>Listagem de categorias</h1>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <td colspan="5">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-primary" (click)="categoryInsertService.showModalInsert()">
+          Nova categoria
+        </button>
+
+      </td>
+    </tr>
+    <tr>
+      <th style="width: 5%">ID</th>
+      <th style="width: 70%">Nome</th>
+      <th style="width: 10%">Ativa?</th>
+      <th style="width: 5%;">Criado em</th>
+      <th style="width: 10%">Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let category of categories | paginate: {itemsPerPage: pagination.perPage, currentPage: pagination.page, totalItems: pagination.totalItems}">
+      <td>{{ category.id }}</td>
+      <td>{{ category.name }}</td>
+      <td>
+        <i class="fas" [ngClass]="{'fa-check': category.active, 'fa-times': !category.active}"></i>
+      </td>
+      <td>{{ category.created_at.date | date: 'dd/MM/yyyy H:m' }}</td>
+      <td>
+        <a href="javascript:void(0)" (click)="categoryEditService.showModalEdit(category)"><i class="fa fa-edit"></i></a>
+        |
+        <a href="javascript:void(0)" (click)="categoryDeleteService.showModalDelete(category)"><i class="fa fa-trash-alt"></i></a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls>
+
+</div>
+
+<category-new-modal
+        (onSuccess)="categoryInsertService.onInsertSuccess($event)"
+        (onError)="categoryInsertService.onInsertError($event)">
+</category-new-modal>
+
+<category-edit-modal
+        (onSuccess)="categoryEditService.onEditSuccess($event)"
+        (onError)="categoryEditService.onEditError($event)">
+</category-edit-modal>
+
+<category-delete-modal
+        (onSuccess)="categoryDeleteService.onDeleteSuccess($event)"
+        (onError)="categoryDeleteService.onDeleteError($event)">
+</category-delete-modal>

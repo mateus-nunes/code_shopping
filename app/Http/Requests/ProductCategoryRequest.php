@@ -24,7 +24,8 @@ class ProductCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'categories' => 'required|exists:categories,id'
+            'categories' => 'required|array',
+            'categories.*' => 'exists:categories,id'
         ];
     }
 }

@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Api','as' => 'api.'], function (){
 
     Route::post('refresh','AuthController@refresh')->name('refresh');
 
-    Route::group(['middleware'=> ['auth:api','jwt.refresh']], function(){
+    Route::group(['middleware'=> ['auth:api',/**  'jwt.refresh' **/]], function(){
 
         Route::post('logout', 'AuthController@logout')->name('logout');
 

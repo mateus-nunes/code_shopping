@@ -1,0 +1,26 @@
+<form (submit)="submit()">
+  <modal>
+    <h5 modal-title>
+      Editar Categoria - {{ product.name }}
+    </h5>
+
+    <div modal-body>
+      <div class="form-group">
+        <label for="name">Nome</label>
+        <input type="text"  name="name" id="name" [(ngModel)]="product.name" required class="form-control" aria-describedby="name" placeholder="Informe o nome da categoria">
+      </div>
+      <div class="form-group form-check">
+        <input class="form-check-input" type="checkbox" name="active" [(ngModel)]="product.active" value="" required id="active">
+        <label class="form-check-label" for="active">
+          Ativa?
+        </label>
+      </div>
+    </div>
+
+    <div modal-footer>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      <button type="submit" class="btn btn-primary">Salvar</button>
+    </div>
+
+  </modal>
+</form>

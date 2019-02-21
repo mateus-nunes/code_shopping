@@ -28,7 +28,10 @@
             ],
             "styles": [
               "src/styles.scss",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/pnotify/dist/PNotifyBrightTheme.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/@fortawesome/fontawesome-free-webfonts/css/fa-solid.css",
+              "node_modules/@fortawesome/fontawesome-free-webfonts/css/fontawesome.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.js",

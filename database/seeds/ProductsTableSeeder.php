@@ -16,9 +16,12 @@ class ProductsTableSeeder extends Seeder
         factory(Product::class, 30)
             ->create()
             ->each(function (Product $product) use ($categories){
-                $categoryId = $categories->random()->id;
+                $j = rand(1,3);
+                for ($i = 0; $i < $j; $i++){
+                    $categoryId = $categories->random()->id;
 
-                $product->categories()->attach($categoryId);
+                    $product->categories()->attach($categoryId);
+                }
             });
     }
 }

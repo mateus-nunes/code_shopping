@@ -1,0 +1,32 @@
+<h1>Categorias de produtos - {{ product?.name }}</h1>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <td colspan="5">
+      <product-category-new [productId]="productId" [productCategory]="productCategory"
+      (onSuccess)="onInsertSuccess($event)" (onError)="onInsertError($event)"
+      ></product-category-new>
+    </td>
+  </tr>
+  <tr>
+    <th style="width: 5%">Id</th>
+    <th style="width: 80%">Nome</th>
+    <th style="width: 5%">Ativa</th>
+    <th style="width: 10%">Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let category of productCategory?.categories">
+    <td>{{ category.id }}</td>
+    <td>{{ category.name }}</td>
+    <td>
+      <i class="fas" [ngClass]="{'fa-check': category.active, 'fa-times': !category.active}"></i>
+    </td>
+    <td>
+      <a href="javascript:void(0)"><i class="fa fa-edit"></i></a>
+      |
+      <a href="javascript:void(0)"><i class="fa fa-trash-alt"></i></a>
+    </td>
+  </tr>
+  </tbody>
+</table>

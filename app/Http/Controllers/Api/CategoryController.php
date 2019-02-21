@@ -11,9 +11,13 @@ use Illuminate\Http\Request;
 class CategoryController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
-        return CategoryResource::collection(Category::all());
+        if($request->has('all')):
+            return CategoryResource::collection(Category::all());
+        endif;
+
+        return CategoryResource::collection(Category::paginate(5));
     }
 
 
