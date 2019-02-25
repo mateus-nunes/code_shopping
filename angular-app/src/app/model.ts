@@ -38,3 +38,12 @@ export interface ProductCategory {
     product: Product,
     categories: Category[]
 }
+
+export interface User{
+    id?: number;
+    name: string;
+    email: string;
+    password?: string;
+    readonly creadted_at?: {date: string};
+    readonly deleted_at?: {date: string};
+}

@@ -18,7 +18,7 @@ export class CategoryListComponent implements OnInit {
   categories: Array<Category> = [];
 
   pagination = {
-    perPage: 15,
+    perPage: 5,
     page: 1,
     totalItems: 0
   };
@@ -48,18 +48,18 @@ export class CategoryListComponent implements OnInit {
   }
 
   getCategories(){
-    this.categoryHttp.list({page: this.pagination.page}).subscribe(response => {
+    this.categoryHttp.list({all: true}).subscribe(response => {
       this.categories = response.data;
 
-      this.pagination.page = response.meta.current_page;
-      this.pagination.totalItems = response.meta.total;
-      this.pagination.perPage = response.meta.per_page;
+      // this.pagination.page = response.meta.current_page;
+      // this.pagination.totalItems = response.meta.total;
+      // this.pagination.perPage = response.meta.per_page;
     });
   }
 
   pageChanged(page){
     this.pagination.page = page;
-    this.getCategories();
+    // this.getCategories();
   }
 
 }
