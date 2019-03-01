@@ -1,0 +1,20 @@
+<div [formGroup]="form">
+  {{ form.get("name").errors | json }}
+  <div class="form-group">
+    <label for="name">Nome</label>
+    <input type="text" id="name" formControlName="name" IsInvalid required maxlength="255" class="form-control" aria-describedby="name" placeholder="Informe o nome da categoria">
+
+    <field-error [field]="form.get('name')"></field-error>
+
+    <!--<div class="invalid-feedback">-->
+      <!--<p *ngIf="form.get('name').errors && form.get('name').errors.required">O campo é obrigatório</p>-->
+      <!--<p *ngIf="form.get('name').errors && form.get('name').errors.maxlength">O campo possui mais de 255 caracteres</p>-->
+    <!--</div>-->
+  </div>
+  <div class="form-group form-check">
+    <input class="form-check-input" type="checkbox" name="active" formControlName="active" value="" id="active">
+    <label class="form-check-label" for="active">
+      Ativa?
+    </label>
+  </div>
+</div>

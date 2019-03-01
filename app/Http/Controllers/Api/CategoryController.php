@@ -3,6 +3,7 @@
 namespace CodeShopping\Http\Controllers\Api;
 
 use CodeShopping\Http\Controllers\Controller;
+use CodeShopping\Http\Filters\CategoryFilter;
 use CodeShopping\Http\Requests\CategoryRequest;
 use CodeShopping\Http\Resources\CategoryResource;
 use CodeShopping\Models\Category;
@@ -13,11 +14,15 @@ class CategoryController extends Controller
 
     public function index(Request $request)
     {
+        $filter = app(CategoryFilter::class);
+
+        $filterQuery = Category::filtered($filter);
+
         if($request->has('all')):
-            return CategoryResource::collection(Category::all());
+            return CategoryResource::collection($filterQuery->get());
         endif;
 
-        return CategoryResource::collection(Category::paginate(5));
+        return CategoryResource::collection($filterQuery->paginate(5));
     }
 
 

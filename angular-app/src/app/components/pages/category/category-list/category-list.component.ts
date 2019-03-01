@@ -7,6 +7,7 @@ import {Category} from "../../../../model";
 import {CategoryInsertService} from "./category-insert.service";
 import {CategoryEditService} from "./category-edit.service";
 import {CategoryDeleteService} from "./category-delete.service";
+import {SearchParams} from "../../../../services/http/http-resource";
 
 @Component({
   selector: 'app-category-list',
@@ -16,6 +17,10 @@ import {CategoryDeleteService} from "./category-delete.service";
 export class CategoryListComponent implements OnInit {
 
   categories: Array<Category> = [];
+
+  sortColumn = {column: 'created_at', sort: 'desc'};
+
+  searchText: string = '';
 
   pagination = {
     perPage: 5,
@@ -48,18 +53,35 @@ export class CategoryListComponent implements OnInit {
   }
 
   getCategories(){
-    this.categoryHttp.list({all: true}).subscribe(response => {
-      this.categories = response.data;
+    let searchParams: SearchParams = {
+      page: this.pagination.page,
+      sort: this.sortColumn.column === "" ? null : this.sortColumn,
+      search: this.searchText
+    };
 
-      // this.pagination.page = response.meta.current_page;
-      // this.pagination.totalItems = response.meta.total;
-      // this.pagination.perPage = response.meta.per_page;
-    });
+    this.categoryHttp.list(searchParams)
+        .subscribe(response => {
+          this.categories = response.data;
+
+          this.pagination.page = response.meta.current_page;
+          this.pagination.totalItems = response.meta.total;
+          this.pagination.perPage = response.meta.per_page;
+        });
   }
 
   pageChanged(page){
     this.pagination.page = page;
-    // this.getCategories();
+    this.getCategories();
   }
 
+  sort(){
+    this.pagination.page = 1;
+
+    this.getCategories();
+  }
+
+  search(search){
+    this.searchText = search;
+    this.getCategories();
+  }
 }

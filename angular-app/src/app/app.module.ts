@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { FormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { CategoryListComponent } from './components/pages/category/category-list/category-list.component';
 import { LoginComponent } from './components/pages/login/login.component';
@@ -28,11 +28,16 @@ import { UserEditModalComponent } from './components/pages/user/user-edit-modal/
 import { UserNewModalComponent } from './components/pages/user/user-new-modal/user-new-modal.component';
 import {RefreshTokenInterceptorService} from "./services/refresh-token-interceptor.service";
 import {AppRoutingModule} from "./app-routing.module";
+import { SortCollumnComponent } from './components/common/sort-collumn/sort-collumn.component';
+import { CategorySearchFormComponent } from './components/pages/category/category-search-form/category-search-form.component';
+import { CategoryFormComponent } from './components/pages/category/category-form/category-form.component';
+import { FieldErrorComponent } from './components/bootstrap/field-error/field-error.component';
+import { IsInvalidDirective } from './directives/is-invalid.directive';
 
 function jwtFactory(authService: AuthService){
   return {
     whitelistedDomains: [
-        new RegExp('localhost:8000/*')
+      new RegExp('localhost:8000/*')
     ],
     tokenGetter: () => {
       return authService.getToken();
@@ -61,12 +66,18 @@ function jwtFactory(authService: AuthService){
     UserListComponent,
     UserDeleteModalComponent,
     UserEditModalComponent,
-    UserNewModalComponent
+    UserNewModalComponent,
+    SortCollumnComponent,
+    CategorySearchFormComponent,
+    CategoryFormComponent,
+    FieldErrorComponent,
+    IsInvalidDirective
   ],
   imports: [
     AppRoutingModule,
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
     JwtModule.forRoot({

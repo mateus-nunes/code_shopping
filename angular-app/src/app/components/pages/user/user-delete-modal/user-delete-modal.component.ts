@@ -37,8 +37,6 @@ export class UserDeleteModalComponent implements OnInit {
   }
 
   destroy(){
-    const token = window.localStorage.getItem('token');
-
     this.userHttp.destroy(this.user.id)
         .subscribe((user) => {
               this.modal.hide();

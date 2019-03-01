@@ -37,8 +37,6 @@ export class ProductDeleteModalComponent implements OnInit {
   }
 
   destroy(){
-    const token = window.localStorage.getItem('token');
-
     this.productHttp.destroy(this.product.id)
         .subscribe((product) => {
               this.modal.hide();

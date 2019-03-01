@@ -17,6 +17,11 @@ export interface HttpResource<T>{
 export interface SearchParams{
     page?: number;
     all?:any;
+    search?: string;
+    sort?:{
+        column: string,
+        sort: string
+    }
 }
 
 export class SearchParamsBuilder{
@@ -32,6 +37,17 @@ export class SearchParamsBuilder{
         if(this.searchParams.all){
             params = params.set('all', '1');
             params = params.delete('page');
+        }
+
+        if(this.searchParams.search && this.searchParams.search !== ""){
+            params = params.set('search', this.searchParams.search);
+        }
+
+        if(this.searchParams.sort){
+            const sortSymbol = this.searchParams.sort.sort == 'desc' ? '-' : '';
+            const columnName = this.searchParams.sort.column;
+
+            params = params.set('sort', `${sortSymbol}${columnName}`);
         }
 
         return params;

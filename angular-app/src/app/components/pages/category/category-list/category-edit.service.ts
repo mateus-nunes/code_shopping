@@ -27,6 +27,10 @@ export class CategoryEditService{
         this.notifyMessage.error('Houve um erro desconhecido ao editar a categoria');
     }
 
+    onEditHide(e){
+        this._categoryListComponent.categoryEditModal.onHideModal(e);
+    }
+
     showModalEdit(category){
         this._categoryListComponent.categoryEditModal.showModal(category);
     }

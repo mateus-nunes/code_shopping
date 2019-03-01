@@ -5,15 +5,14 @@
     </h2>
 
     <div modal-body>
-      <div class="form-group">
-        <label for="name">Nome</label>
-        <input type="text"  name="name" id="name" [(ngModel)]="category.name" class="form-control" aria-describedby="name" placeholder="Informe o nome da categoria">
-      </div>
+
+      <category-form [form]="form"></category-form>
+
     </div>
 
     <div modal-footer>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      <button type="submit" class="btn btn-primary">Salvar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Salvar</button>
     </div>
 
   </modal>

@@ -1,8 +1,9 @@
 import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalComponent} from "../../../bootstrap/modal/modal.component";
 import {HttpErrorResponse} from "@angular/common/http";
-import {Category} from "../../../../model";
 import {CategoryHttpService} from "../../../../services/http/category-http.service";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {Category} from "../../../../model";
 
 @Component({
   selector: 'category-new-modal',
@@ -11,9 +12,7 @@ import {CategoryHttpService} from "../../../../services/http/category-http.servi
 })
 export class CategoryNewModalComponent implements OnInit {
 
-  category: Category = {
-    name: ''
-  };
+  form: FormGroup;
 
   @ViewChild(ModalComponent)
   modal: ModalComponent;
@@ -21,7 +20,12 @@ export class CategoryNewModalComponent implements OnInit {
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
-  constructor(private categoryHttp: CategoryHttpService) { }
+  constructor(private categoryHttp: CategoryHttpService, private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      name:'',
+      active: true
+    })
+  }
 
   ngOnInit() {
   }
@@ -31,8 +35,13 @@ export class CategoryNewModalComponent implements OnInit {
   }
 
   submit(){
-    this.categoryHttp.create(this.category)
+    this.categoryHttp.create(this.form.value)
         .subscribe((category:Category) => {
+              this.form.reset({
+                name: '',
+                active: true
+              });
+
               this.modal.hide();
               this.onSuccess.emit(category);
             },

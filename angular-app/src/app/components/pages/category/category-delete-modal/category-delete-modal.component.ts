@@ -30,15 +30,21 @@ export class CategoryDeleteModalComponent implements OnInit {
     if(! Number.isInteger(category)){
       this.category = category;
     }else{
-      this.categoryHttp.get(category).subscribe(response => this.category = response);
+      this.categoryHttp.get(category)
+          .subscribe(
+              (response) => {this.category = response},
+              (error) => {
+                if(error.status == 401){
+                  this.modal.hide()
+                }
+              }
+          );
     }
 
     this.modal.show();
   }
 
   destroy(){
-    const token = window.localStorage.getItem('token');
-
     this.categoryHttp.destroy(this.category.id)
         .subscribe((category) => {
               this.modal.hide();
@@ -48,4 +54,11 @@ export class CategoryDeleteModalComponent implements OnInit {
               this.onError.emit(error);
             });
   }
+
+    onHideModal(event){
+        this.category = {
+            name: '',
+            active: true
+        };
+    }
 }
