@@ -1,0 +1,21 @@
+import {Component, Input, OnInit} from '@angular/core';
+
+@Component({
+  selector: 'list-error',
+  templateUrl: './list-error.component.html',
+  styleUrls: ['./list-error.component.scss']
+})
+export class ListErrorComponent implements OnInit {
+
+  @Input()
+  errors:{};
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
+  get errorsKeys(){
+    return Object.keys(this.errors)
+  }
+}

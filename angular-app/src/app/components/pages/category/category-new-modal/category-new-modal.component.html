@@ -6,6 +6,10 @@
 
     <div modal-body>
 
+      <card-error *ngIf="showErrors()">
+        <list-error [errors]="errors"></list-error>
+      </card-error>
+
       <category-form [form]="form"></category-form>
 
     </div>

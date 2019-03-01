@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
@@ -9,17 +8,17 @@ return [
     |
     | The following language lines contain the default error messages used by
     | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
+    | as the size rules. Feel free to tweak each of these messages.
     |
     */
 
     'accepted'             => 'O campo :attribute deve ser aceito.',
-    'active_url'           => 'O campo :attribute não é uma URL válida.',
-    'after'                => 'O campo :attribute deve ser uma data posterior a :date.',
-    'after_or_equal'       => 'O campo :attribute deve ser uma data superior ou igual a :date.',
-    'alpha'                => 'O campo :attribute deve ser apenas letras.',
-    'alpha_dash'           => 'O campo :attribute só pode conter letras, números e traços.',
-    'alpha_num'            => 'O campo :attribute só pode conter letras e números.',
+    'active_url'           => 'O campo :attribute deve conter uma URL válida.',
+    'after'                => 'O campo :attribute deve conter uma data posterior a :date.',
+    'after_or_equal'       => 'O campo :attribute deve conter uma data superior ou igual a :date.',
+    'alpha'                => 'O campo :attribute deve conter apenas letras.',
+    'alpha_dash'           => 'O campo :attribute deve conter apenas letras, números e traços.',
+    'alpha_num'            => 'O campo :attribute deve conter apenas letras e números .',
     'array'                => 'O campo :attribute deve conter um array.',
     'before'               => 'O campo :attribute deve conter uma data anterior a :date.',
     'before_or_equal'      => 'O campo :attribute deve conter uma data inferior ou igual a :date.',
@@ -32,6 +31,7 @@ return [
     'boolean'              => 'O campo :attribute deve conter o valor verdadeiro ou falso.',
     'confirmed'            => 'A confirmação para o campo :attribute não coincide.',
     'date'                 => 'O campo :attribute não contém uma data válida.',
+    'date_equals'          => 'O campo :attribute deve ser uma data igual a :date.',
     'date_format'          => 'A data informada para o campo :attribute não respeita o formato :format.',
     'different'            => 'Os campos :attribute e :other devem conter valores diferentes.',
     'digits'               => 'O campo :attribute deve conter :digits dígitos.',
@@ -42,17 +42,17 @@ return [
     'exists'               => 'O valor selecionado para o campo :attribute é inválido.',
     'file'                 => 'O campo :attribute deve conter um arquivo.',
     'filled'               => 'O campo :attribute é obrigatório.',
-    'gt' => [
+    'gt'                   => [
         'numeric' => 'O campo :attribute deve ser maior que :value.',
-        'file' => 'O campo :attribute deve ser maior que :value kilobytes.',
-        'string' => 'O campo :attribute deve ser maior que :value caracteres.',
-        'array' => 'O campo :attribute deve ter mais que :value items.',
+        'file'    => 'O arquivo :attribute deve ser maior que :value kilobytes.',
+        'string'  => 'O campo :attribute deve ser maior que :value caracteres.',
+        'array'   => 'O campo :attribute deve ter mais que :value itens.',
     ],
-    'gte' => [
+    'gte'                  => [
         'numeric' => 'O campo :attribute deve ser maior ou igual a :value.',
-        'file' => 'O campo :attribute deve ser maior ou igual a :value kilobytes.',
-        'string' => 'O campo :attribute deve ser maior ou igual a :value caracteres.',
-        'array' => 'O campo :attribute deve ter :value items ou mais.',
+        'file'    => 'O arquivo :attribute deve ser maior ou igual a :value kilobytes.',
+        'string'  => 'O campo :attribute deve ser maior ou igual a :value caracteres.',
+        'array'   => 'O campo :attribute deve ter :value itens ou mais.',
     ],
     'image'                => 'O campo :attribute deve conter uma imagem.',
     'in'                   => 'O campo :attribute não contém um valor válido.',
@@ -62,17 +62,17 @@ return [
     'ipv4'                 => 'O campo :attribute deve conter um IPv4 válido.',
     'ipv6'                 => 'O campo :attribute deve conter um IPv6 válido.',
     'json'                 => 'O campo :attribute deve conter uma string JSON válida.',
-    'lt' => [
+    'lt'                   => [
         'numeric' => 'O campo :attribute deve ser menor que :value.',
-        'file' => 'O campo :attribute deve ser menor que :value kilobytes.',
-        'string' => 'O campo :attribute deve ser menor que :value caracteres.',
-        'array' => 'O campo :attribute deve ter menos do que :value items.',
+        'file'    => 'O arquivo :attribute ser menor que :value kilobytes.',
+        'string'  => 'O campo :attribute deve ser menor que :value caracteres.',
+        'array'   => 'O campo :attribute deve ter menos que :value itens.',
     ],
-    'lte' => [
+    'lte'                  => [
         'numeric' => 'O campo :attribute deve ser menor ou igual a :value.',
-        'file' => 'O campo :attribute deve ser menor ou igual a :value kilobytes.',
-        'string' => 'O campo :attribute deve ser menor ou igual a :value caracteres.',
-        'array' => 'O campo :attribute não deve ter mais do que :value items.',
+        'file'    => 'O arquivo :attribute ser menor ou igual a :value kilobytes.',
+        'string'  => 'O campo :attribute deve ser menor ou igual a :value caracteres.',
+        'array'   => 'O campo :attribute não deve ter mais que :value itens.',
     ],
     'max'                  => [
         'numeric' => 'O campo :attribute não pode conter um valor superior a :max.',
@@ -89,7 +89,7 @@ return [
         'array'   => 'O campo :attribute deve conter no mínimo :min itens.',
     ],
     'not_in'               => 'O campo :attribute contém um valor inválido.',
-    'not_regex'            => 'The :attribute format is invalid.',
+    'not_regex'            => 'O formato do valor :attribute é inválido.',
     'numeric'              => 'O campo :attribute deve conter um valor numérico.',
     'present'              => 'O campo :attribute deve estar presente.',
     'regex'                => 'O formato do valor informado no campo :attribute é inválido.',
@@ -107,11 +107,13 @@ return [
         'string'  => 'O campo :attribute deve conter :size caracteres.',
         'array'   => 'O campo :attribute deve conter :size itens.',
     ],
+    'starts_with'          => 'O campo :attribute deve começar com um dos seguintes valores: :values',
     'string'               => 'O campo :attribute deve ser uma string.',
     'timezone'             => 'O campo :attribute deve conter um fuso horário válido.',
     'unique'               => 'O valor informado para o campo :attribute já está em uso.',
     'uploaded'             => 'Falha no Upload do arquivo :attribute.',
     'url'                  => 'O formato da URL informada para o campo :attribute é inválido.',
+    'uuid'                 => 'O campo :attribute deve ser um UUID válido.',
 
     /*
     |--------------------------------------------------------------------------
@@ -142,36 +144,37 @@ return [
     */
 
     'attributes' => [
-        'address' => 'endereço',
-        'age' => 'idade',
-        'body' => 'conteúdo',
-        'city' => 'cidade',
-        'country' => 'país',
-        'date' => 'data',
-        'day' => 'dia',
-        'description' => 'descrição',
-        'excerpt' => 'resumo',
-        'first_name' => 'primeiro nome',
-        'gender' => 'gênero',
-        'hour' => 'hora',
-        'last_name' => 'sobrenome',
-        'message' => 'mensagem',
-        'minute' => 'minuto',
-        'mobile' => 'celular',
-        'month' => 'mês',
-        'name' => 'nome',
+        'address'               => 'endereço',
+        'age'                   => 'idade',
+        'body'                  => 'conteúdo',
+        'city'                  => 'cidade',
+        'country'               => 'país',
+        'date'                  => 'data',
+        'day'                   => 'dia',
+        'description'           => 'descrição',
+        'excerpt'               => 'resumo',
+        'first_name'            => 'primeiro nome',
+        'gender'                => 'gênero',
+        'hour'                  => 'hora',
+        'last_name'             => 'sobrenome',
+        'message'               => 'mensagem',
+        'minute'                => 'minuto',
+        'mobile'                => 'celular',
+        'month'                 => 'mês',
+        'name'                  => 'nome',
         'password_confirmation' => 'confirmação da senha',
-        'password' => 'senha',
-        'phone' => 'telefone',
-        'second' => 'segundo',
-        'sex' => 'sexo',
-        'state' => 'estado',
-        'subject' => 'assunto',
-        'text' => 'texto',
-        'time' => 'hora',
-        'title' => 'título',
-        'username' => 'usuário',
-        'year' => 'ano',
+        'password'              => 'senha',
+        'phone'                 => 'telefone',
+        'second'                => 'segundo',
+        'sex'                   => 'sexo',
+        'state'                 => 'estado',
+        'subject'               => 'assunto',
+        'text'                  => 'texto',
+        'time'                  => 'hora',
+        'title'                 => 'título',
+        'username'              => 'usuário',
+        'year'                  => 'ano',
+        'email'                 => 'e-mail',
+        'remember'              => 'lembrar-se de mim',
     ],
-
 ];
