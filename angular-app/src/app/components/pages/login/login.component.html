@@ -1,12 +1,21 @@
 <form class="form-signin" (submit)="submit()">
   <h1 class="h3 mb-3 font-weight-normal">Code Shopping Login</h1>
 
+  <card-error *ngIf="showErrors()">
+    <list-error [errors]="errors"></list-error>
+  </card-error>
+
   <alert-error [(show)]="showMessageError">Credenciais inválidas</alert-error>
 
-  <label for="email" class="sr-only">Email</label>
-  <input type="email" id="email" name="email" [(ngModel)]="credentials.email" class="form-control" placeholder="Digite o email" required autofocus>
-  <label for="password" class="sr-only">Senha</label>
-  <input type="password" id="password" name="password" [(ngModel)]="credentials.password" class="form-control" placeholder="Digite sua senha" required>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Entrar</button>
+  <div [formGroup]="form">
+      <label [for]="fieldsOptions.email.id" class="sr-only">{{ fieldsOptions.email.label }}</label>
+      <input type="email" [id]="fieldsOptions.email.id" name="email" formControlName="email" IsInvalid class="form-control" placeholder="Digite o email" required autofocus>
+      <field-error [field]="form.get('email')" [label]="fieldsOptions.email.label" [messages]="fieldsOptions.email.validationMessage"></field-error>
+
+      <label [for]="fieldsOptions.password.id" class="sr-only">{{ fieldsOptions.password.label }}</label>
+      <input type="password" [id]="fieldsOptions.password.id" name="password" formControlName="password" IsInvalid class="form-control" placeholder="Digite sua senha" required>
+      <field-error [field]="form.get('password')" [label]="fieldsOptions.password.label" [messages]="fieldsOptions.password.validationMessage"></field-error>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="form.invalid">Entrar</button>
 
 </form>

@@ -2,7 +2,9 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import {ModalComponent} from "../../../bootstrap/modal/modal.component";
 import {HttpErrorResponse} from "@angular/common/http";
 import {CategoryHttpService} from "../../../../services/http/category-http.service";
-import {FormBuilder, FormGroup} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import fieldOptionsCategory from "../category-form/fieldsOptions";
+import {Category} from "../../../../model";
 
 @Component({
     selector: 'category-edit-modal',
@@ -12,6 +14,8 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 export class CategoryEditModalComponent implements OnInit {
 
     form: FormGroup;
+
+    errors: {} = {};
 
     @ViewChild(ModalComponent)
     modal: ModalComponent;
@@ -24,7 +28,7 @@ export class CategoryEditModalComponent implements OnInit {
 
     constructor(private categoryHttp: CategoryHttpService) {
         this.form = new FormBuilder().group({
-            name: '',
+            name:['',[Validators.required, Validators.maxLength(this.maxlength)]],
             active: true
         });
     }
@@ -56,12 +60,23 @@ export class CategoryEditModalComponent implements OnInit {
     submit(){
 
         this.categoryHttp.update(this._categoryId, this.form.value)
-            .subscribe((category) => {
+            .subscribe((category: Category) => {
+                    this.form.reset({
+                        name: '',
+                        active: true
+                    });
+
                     this.modal.hide();
                     this.onSuccess.emit(category);
                 },
-                error => {
-                    this.onError.emit(error);
+                responseError => {
+                    console.log(responseError);
+
+                    if(responseError.status === 422){
+                        this.errors = responseError.error.errors;
+                    }
+
+                    this.onError.emit(responseError);
                 });
     }
 
@@ -70,5 +85,13 @@ export class CategoryEditModalComponent implements OnInit {
             name: '',
             active: true
         });
+    }
+
+    get maxlength(){
+        return fieldOptionsCategory.name.validationMessage.maxlength;
+    }
+
+    showErrors(){
+        return Object.keys(this.errors).length > 0;
     }
 }
