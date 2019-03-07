@@ -4,7 +4,9 @@ const messages = {
     maxlength: 'O campo :field deve ter no máximo :max caracteres',
     email: 'O campo :field não e um e-mail válido',
     url: 'O campo :field não é um link válido',
-    date: 'O campo :field não é uma data válida'
+    date: 'O campo :field não é uma data válida',
+    min: 'O campo :field não pode ser menor que :min',
+    max: 'O campo :field não pode ser maior que :max',
 };
 
 export class ValidationMessage {

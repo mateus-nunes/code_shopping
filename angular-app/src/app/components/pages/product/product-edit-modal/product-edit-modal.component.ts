@@ -3,6 +3,8 @@ import {ModalComponent} from "../../../bootstrap/modal/modal.component";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Product} from "../../../../model";
 import {ProductHttpService} from "../../../../services/http/product-http.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import fieldOptionsProduct from "../product-form/fieldsOptions";
 
 @Component({
   selector: 'product-edit-modal',
@@ -11,10 +13,10 @@ import {ProductHttpService} from "../../../../services/http/product-http.service
 })
 export class ProductEditModalComponent implements OnInit {
 
-  product: Product = {
-    name: '',
-    active: true
-  };
+  form: FormGroup;
+  _product_id = null;
+
+  errors: {} = {};
 
   @ViewChild(ModalComponent)
   modal: ModalComponent;
@@ -22,7 +24,13 @@ export class ProductEditModalComponent implements OnInit {
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
-  constructor(private productHttp: ProductHttpService) { }
+  constructor(private productHttp: ProductHttpService, private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      name: ['',[Validators.required, Validators.maxLength(this.fieldsOptions.name.validationMessage.maxlength)]],
+      description: ['',[Validators.required, Validators.minLength(this.fieldsOptions.description.validationMessage.minlength)]],
+      price:['',[Validators.required, Validators.min(this.fieldsOptions.price.validationMessage.min)]]
+    });
+  }
 
   ngOnInit() {
   }
@@ -30,9 +38,14 @@ export class ProductEditModalComponent implements OnInit {
   showModal(product){
 
     if(! Number.isInteger(product)){
-      this.product = product;
+      this.form.patchValue(product);
+      this._product_id = product.id;
     }else{
-      this.productHttp.get(product).subscribe(response => this.product = response);
+      this.productHttp.get(product)
+          .subscribe((response: Product) => {
+            this.form.patchValue(response);
+            this._product_id = response.id;
+          });
     }
 
     this.modal.show();
@@ -40,8 +53,14 @@ export class ProductEditModalComponent implements OnInit {
 
   submit(){
 
-    this.productHttp.update(this.product.id, this.product)
+    this.productHttp.update(this._product_id, this.form.value)
         .subscribe((product) => {
+              this.form.reset({
+                name: '',
+                description: '',
+                price: null
+              });
+
               this.modal.hide();
               this.onSuccess.emit(product);
             },
@@ -50,4 +69,11 @@ export class ProductEditModalComponent implements OnInit {
             });
   }
 
+  get fieldsOptions(){
+    return fieldOptionsProduct;
+  }
+
+  showErrors(){
+    return Object.keys(this.errors).length > 0;
+  }
 }

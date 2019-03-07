@@ -1,0 +1,17 @@
+<div [formGroup]="form">
+  <div class="form-group">
+    <label [for]="fieldsOptions.name.id">{{ fieldsOptions.name.label }}</label>
+    <input type="text" name="name" [id]="fieldsOptions.name.id" formControlName="name" IsInvalid class="form-control" placeholder="Informe o nome do produto">
+    <field-error [field]="form.get('name')" [label]="fieldsOptions.name.label" [messages]="fieldsOptions.name.validationMessage"></field-error>
+  </div>
+  <div class="form-group">
+    <label [for]="fieldsOptions.description.id">{{ fieldsOptions.description.label }}</label>
+    <textarea name="description" [id]="fieldsOptions.description.id" IsInvalid formControlName="description" class="form-control"></textarea>
+    <field-error [field]="form.get('description')" [label]="fieldsOptions.description.label" [messages]="fieldsOptions.description.validationMessage"></field-error>
+  </div>
+  <div class="form-group">
+    <label [for]="fieldsOptions.price.id">{{ fieldsOptions.price.label }}</label>
+    <input type="number" name="price" [id]="fieldsOptions.price.id" formControlName="price" IsInvalid class="form-control" placeholder="Informe o preço do produto">
+    <field-error [field]="form.get('price')" [label]="fieldsOptions.price.label" [messages]="fieldsOptions.price.validationMessage"></field-error>
+  </div>
+</div>

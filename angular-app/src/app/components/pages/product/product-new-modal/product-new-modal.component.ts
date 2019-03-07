@@ -3,6 +3,8 @@ import {ModalComponent} from "../../../bootstrap/modal/modal.component";
 import {HttpErrorResponse} from "@angular/common/http";
 import {Product} from "../../../../model";
 import {ProductHttpService} from "../../../../services/http/product-http.service";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import fieldOptionsProduct from "../product-form/fieldsOptions";
 
 @Component({
   selector: 'product-new-modal',
@@ -11,12 +13,9 @@ import {ProductHttpService} from "../../../../services/http/product-http.service
 })
 export class ProductNewModalComponent implements OnInit {
 
-  product: Product = {
-    name: '',
-    description: '',
-    price: 0,
-    active: true
-  };
+  form: FormGroup;
+
+  errors: {} = {};
 
   @ViewChild(ModalComponent)
   modal: ModalComponent;
@@ -24,7 +23,13 @@ export class ProductNewModalComponent implements OnInit {
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
-  constructor(private productHttp: ProductHttpService) { }
+  constructor(private productHttp: ProductHttpService, private formBuilder: FormBuilder) {
+    this.form = this.formBuilder.group({
+      name: ['',[Validators.required, Validators.maxLength(this.fieldsOptions.name.validationMessage.maxlength)]],
+      description: ['',[Validators.required, Validators.minLength(this.fieldsOptions.description.validationMessage.minlength)]],
+      price:['',[Validators.required, Validators.min(this.fieldsOptions.price.validationMessage.min)]]
+    });
+  }
 
   ngOnInit() {
   }
@@ -34,8 +39,14 @@ export class ProductNewModalComponent implements OnInit {
   }
 
   submit(){
-    this.productHttp.create(this.product)
+    this.productHttp.create(this.form.value)
         .subscribe((product:Product) => {
+              this.form.reset({
+                name: '',
+                description: '',
+                price: null
+              });
+
               this.modal.hide();
               this.onSuccess.emit(product);
             },
@@ -44,4 +55,11 @@ export class ProductNewModalComponent implements OnInit {
             });
   }
 
+  get fieldsOptions(){
+    return fieldOptionsProduct;
+  }
+
+  showErrors(){
+    return Object.keys(this.errors).length > 0;
+  }
 }

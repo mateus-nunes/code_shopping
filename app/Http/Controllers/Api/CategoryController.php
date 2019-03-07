@@ -22,7 +22,7 @@ class CategoryController extends Controller
             return CategoryResource::collection($filterQuery->get());
         endif;
 
-        return CategoryResource::collection($filterQuery->paginate(5));
+        return CategoryResource::collection($filterQuery->paginate(20));
     }
 
 

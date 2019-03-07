@@ -7,6 +7,7 @@ import {Product} from "../../../../model";
 import {ProductInsertService} from "./product-insert.service";
 import {ProductEditService} from "./product-edit.service";
 import {ProductDeleteService} from "./product-delete.service";
+import {SearchParams} from "../../../../services/http/http-resource";
 
 @Component({
   selector: 'app-product-list',
@@ -17,8 +18,12 @@ export class ProductListComponent implements OnInit {
 
   products: Array<Product> = [];
 
+  sortColumn = {column: 'created_at', sort: 'desc'};
+
+  searchText: string = '';
+
   pagination = {
-    perPage: 15,
+    perPage: 5,
     page: 1,
     totalItems: 0
   };
@@ -48,7 +53,13 @@ export class ProductListComponent implements OnInit {
   }
 
   getProducts(){
-    this.productHttp.list({page: this.pagination.page}).subscribe(response => {
+    let searchParams: SearchParams = {
+      page: this.pagination.page,
+      sort: this.sortColumn.column === "" ? null : this.sortColumn,
+      search: this.searchText
+    };
+
+    this.productHttp.list(searchParams).subscribe(response => {
       this.products = response.data;
 
       this.pagination.page = response.meta.current_page;
@@ -62,4 +73,14 @@ export class ProductListComponent implements OnInit {
     this.getProducts();
   }
 
+  sort(){
+    this.pagination.page = 1;
+
+    this.getProducts();
+  }
+
+  search(search){
+    this.searchText = search;
+    this.getProducts();
+  }
 }

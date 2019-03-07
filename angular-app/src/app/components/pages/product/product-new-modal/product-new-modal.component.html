@@ -5,23 +5,18 @@
     </h2>
 
     <div modal-body>
-      <div class="form-group">
-        <label for="name">Nome</label>
-        <input type="text"  name="name" id="name" [(ngModel)]="product.name" class="form-control" aria-describedby="name" placeholder="Informe o nome do produto">
-      </div>
-      <div class="form-group">
-        <label for="description">Descrição</label>
-        <textarea name="description" id="description" [(ngModel)]="product.description" class="form-control" aria-describedby="description"></textarea>
-      </div>
-      <div class="form-group">
-        <label for="price">Preço</label>
-        <input type="number"  name="price" id="price" [(ngModel)]="product.price" class="form-control" aria-describedby="price" placeholder="Informe o preço do produto">
-      </div>
+
+      <card-error *ngIf="showErrors()">
+        <list-error [errors]="errors"></list-error>
+      </card-error>
+
+      <product-form [form]="form"></product-form>
+
     </div>
 
     <div modal-footer>
       <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-      <button type="submit" class="btn btn-primary">Salvar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Salvar</button>
     </div>
 
   </modal>
