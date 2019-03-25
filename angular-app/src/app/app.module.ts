@@ -36,6 +36,8 @@ import { IsInvalidDirective } from './directives/is-invalid.directive';
 import { ListErrorComponent } from './components/bootstrap/list-error/list-error.component';
 import { CardErrorComponent } from './components/bootstrap/card-error/card-error.component';
 import { ProductFormComponent } from './components/pages/product/product-form/product-form.component';
+import { ProductCategoryDeleteModalComponent } from './components/pages/product-category/product-category-delete-modal/product-category-delete-modal.component';
+import { UserFormComponent } from './components/pages/user/user-form/user-form.component';
 
 function jwtFactory(authService: AuthService){
   return {
@@ -77,7 +79,9 @@ function jwtFactory(authService: AuthService){
     IsInvalidDirective,
     ListErrorComponent,
     CardErrorComponent,
-    ProductFormComponent
+    ProductFormComponent,
+    ProductCategoryDeleteModalComponent,
+    UserFormComponent
   ],
   imports: [
     AppRoutingModule,

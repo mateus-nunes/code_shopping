@@ -1,6 +1,6 @@
 const messages = {
     required: 'O campo :field é obrigatório',
-    minlength: 'O campo :field deve ter no mínimo :min caracteres',
+    minlength: 'O campo :field deve ter no mínimo :minlength caracteres',
     maxlength: 'O campo :field deve ter no máximo :max caracteres',
     email: 'O campo :field não e um e-mail válido',
     url: 'O campo :field não é um link válido',

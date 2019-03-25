@@ -1,0 +1,14 @@
+<modal (onHide)="onHideModal($event)">
+  <h5 modal-title>
+    Desvinculação de categoria
+  </h5>
+
+  <div modal-body>
+    Deseja desvincular a categoria <strong>{{ category?.name }}</strong> do produto <strong>{{ product?.name }}</strong>?
+  </div>
+
+  <div modal-footer>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+    <button type="button" class="btn btn-danger" (click)="destroy()">Excluir</button>
+  </div>
+</modal>

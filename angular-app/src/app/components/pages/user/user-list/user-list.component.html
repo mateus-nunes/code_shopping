@@ -4,19 +4,22 @@
   <table class="table table-striped">
     <thead>
     <tr>
-      <td colspan="5">
+      <td colspan="2">
         <!-- Button trigger modal -->
         <button type="button" class="btn btn-primary" (click)="userInsertService.showModalInsert()">
           Novo usuário
         </button>
 
       </td>
+      <td colspan="3">
+        <category-search-form (onSearch)="search($event)"></category-search-form>
+      </td>
     </tr>
     <tr>
-      <th style="width: 5%">ID</th>
-      <th style="width: 70%">Nome</th>
-      <th style="width: 10%">Email</th>
-      <th style="width: 5%;">Criado em</th>
+      <th style="width: 8%" [sortColumn]="sortColumn" columnName="id" (onSort)="sort($event)">ID</th>
+      <th style="width: 60%" [sortColumn]="sortColumn" columnName="name" (onSort)="sort($event)">Nome</th>
+      <th style="width: 14%" [sortColumn]="sortColumn" columnName="email" (onSort)="sort($event)">Email</th>
+      <th style="width: 8%;" [sortColumn]="sortColumn" columnName="created_at" (onSort)="sort($event)">Criado em</th>
       <th style="width: 10%">Ações</th>
     </tr>
     </thead>

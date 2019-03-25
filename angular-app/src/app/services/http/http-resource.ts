@@ -16,6 +16,7 @@ export interface HttpResource<T>{
 
 export interface SearchParams{
     page?: number;
+    perPage?: number;
     all?:any;
     search?: string;
     sort?:{
@@ -32,6 +33,10 @@ export class SearchParamsBuilder{
 
         if(this.searchParams.page) {
             params = params.set('page', this.searchParams.page + "");
+        }
+
+        if(this.searchParams.perPage) {
+            params = params.set('per-page', this.searchParams.perPage + "");
         }
 
         if(this.searchParams.all){

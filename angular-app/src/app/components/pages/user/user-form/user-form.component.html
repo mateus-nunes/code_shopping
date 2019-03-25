@@ -1,0 +1,22 @@
+<div [formGroup]="form">
+  <div class="form-group">
+    <label [for]="fieldsOptions.name.id">{{ fieldsOptions.name.label }}</label>
+    <input type="text" [id]="fieldsOptions.name.id" formControlName="name" IsInvalid class="form-control" placeholder="Informe o nome do usuário">
+    <field-error [field]="form.get('name')" [label]="fieldsOptions.name.label" [messages]="fieldsOptions.name.validationMessage"></field-error>
+  </div>
+  <div class="form-group">
+    <label [for]="fieldsOptions.email.id">{{ fieldsOptions.email.label }}</label>
+    <input type="email" [id]="fieldsOptions.email.id" formControlName="email" IsInvalid class="form-control" placeholder="Informe o email do usuário">
+    <field-error [field]="form.get('email')" [label]="fieldsOptions.email.label" [messages]="fieldsOptions.email.validationMessage"></field-error>
+  </div>
+  <div class="form-group">
+    <label [for]="fieldsOptions.password.id">{{ fieldsOptions.password.label }}</label>
+    <input type="password" [id]="fieldsOptions.password.id" formControlName="password" IsInvalid class="form-control" placeholder="Informe a senha de acesso">
+    <field-error [field]="form.get('password')" [label]="fieldsOptions.password.label" [messages]="fieldsOptions.password.validationMessage"></field-error>
+  </div>
+  <div class="form-group">
+    <label [for]="fieldsOptions.password_confirmation.id">{{ fieldsOptions.password_confirmation.label }}</label>
+    <input type="password" [id]="fieldsOptions.password_confirmation.id" formControlName="password_confirmation" IsInvalid class="form-control" placeholder="Confirme a senha de acesso">
+    <field-error [field]="form.get('password_confirmation')" [label]="fieldsOptions.password_confirmation.label" [messages]="fieldsOptions.password_confirmation.validationMessage"></field-error>
+  </div>
+</div>

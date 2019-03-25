@@ -30,6 +30,11 @@ export class ProductCategoryHttpService {
             );
     }
 
+    destroy(productId: number, categoryId: number): Observable<any>{
+        return this.http
+            .delete<{data: ProductCategory}>(this.getBaseUrl(productId, categoryId));
+    }
+
     private getBaseUrl(productId: number, categoryId: number = null): string{
         let url = `${this.baseApi}/products/${productId}/categories`;
 

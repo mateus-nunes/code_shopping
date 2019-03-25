@@ -11,7 +11,6 @@
   <tr>
     <th style="width: 5%">Id</th>
     <th style="width: 80%">Nome</th>
-    <th style="width: 5%">Ativa</th>
     <th style="width: 10%">Ações</th>
   </tr>
   </thead>
@@ -20,13 +19,13 @@
     <td>{{ category.id }}</td>
     <td>{{ category.name }}</td>
     <td>
-      <i class="fas" [ngClass]="{'fa-check': category.active, 'fa-times': !category.active}"></i>
-    </td>
-    <td>
-      <a href="javascript:void(0)"><i class="fa fa-edit"></i></a>
-      |
-      <a href="javascript:void(0)"><i class="fa fa-trash-alt"></i></a>
+      <a href="javascript:void(0)" (click)="showModalDelete(productCategory.product, category)"><i class="fa fa-trash-alt"></i></a>
     </td>
   </tr>
   </tbody>
 </table>
+
+<product-category-delete-modal
+        (onSuccess)="onDeleteSuccess($event)"
+        (onError)="onDeleteError($event)">
+</product-category-delete-modal>

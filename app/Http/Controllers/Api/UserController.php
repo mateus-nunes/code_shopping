@@ -3,23 +3,33 @@
 namespace CodeShopping\Http\Controllers\Api;
 
 use CodeShopping\Events\UserCreatedEvent;
+use CodeShopping\Http\Filters\UserFilter;
 use CodeShopping\Http\Requests\UserRequest;
 use CodeShopping\Http\Resources\UserResource;
 use CodeShopping\Models\User;
 use CodeShopping\Traits\OnlyTrashed;
 use CodeShopping\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     use OnlyTrashed;
 
-    public function index()
+    public function index(Request $request)
     {
-        $query = User::query();
-        $query = $this->onlyTrashedIfRequested($query);
-        $users = $query->paginate(20);
+        $filter = app(UserFilter::class);
 
-        return UserResource::collection($users);
+        $filterQuery = User::filtered($filter);
+
+        $filterQuery = $this->onlyTrashedIfRequested($filterQuery);
+
+        if($request->has('all')):
+            return UserResource::collection($filterQuery->get());
+        endif;
+
+        $perPage = $request->has('per-page') ? $request->get('per-page') : 20;
+
+        return UserResource::collection($filterQuery->paginate($perPage));
     }
 
     public function store(UserRequest $request)

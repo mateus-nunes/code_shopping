@@ -50,8 +50,14 @@ export class ProductNewModalComponent implements OnInit {
               this.modal.hide();
               this.onSuccess.emit(product);
             },
-            error => {
-              this.onError.emit(error);
+            responseError => {
+              console.log(responseError);
+
+              if(responseError.status === 422){
+                this.errors = responseError.error.errors;
+              }
+
+              this.onError.emit(responseError);
             });
   }
 

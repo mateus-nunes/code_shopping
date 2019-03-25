@@ -5,22 +5,12 @@
     </h2>
 
     <div modal-body>
-      <div class="form-group">
-        <label for="name">Nome</label>
-        <input type="text"  name="name" id="name" [(ngModel)]="user.name" class="form-control" aria-describedby="name" placeholder="Informe o nome do usuário">
-      </div>
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email"  name="email" id="email" [(ngModel)]="user.email" required class="form-control" aria-describedby="email" placeholder="Informe o email do usuário">
-      </div>
-      <div class="form-group">
-        <label for="password">Senha</label>
-        <input type="password"  name="password" id="password" [(ngModel)]="user.password" required class="form-control" aria-describedby="password" placeholder="Informe a senha do usuário">
-      </div>
-      <div class="form-group">
-        <label for="password_confirmation">Confirme a Senha</label>
-        <input type="password"  name="password_confirmation" id="password_confirmation" [(ngModel)]="user.password_confirmation" required class="form-control" aria-describedby="password_confirmation" placeholder="Confirme a senha do usuário">
-      </div>
+
+      <card-error *ngIf="showErrors()">
+        <list-error [errors]="errors"></list-error>
+      </card-error>
+
+      <user-form [form]="form"></user-form>
     </div>
 
     <div modal-footer>

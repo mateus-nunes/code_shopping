@@ -6,11 +6,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Cviebrock\EloquentSluggable\Sluggable;
+use Mnabialek\LaravelEloquentFilter\Traits\Filterable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
 class User extends Authenticatable implements JWTSubject
 {
-    use Notifiable, Sluggable, SoftDeletes;
+    use Notifiable, Sluggable, SoftDeletes, Filterable;
 
     /**
      * The attributes that are mass assignable.

@@ -23,7 +23,7 @@ export class ProductListComponent implements OnInit {
   searchText: string = '';
 
   pagination = {
-    perPage: 5,
+    perPage: 20,
     page: 1,
     totalItems: 0
   };
@@ -55,6 +55,7 @@ export class ProductListComponent implements OnInit {
   getProducts(){
     let searchParams: SearchParams = {
       page: this.pagination.page,
+      perPage: this.pagination.perPage,
       sort: this.sortColumn.column === "" ? null : this.sortColumn,
       search: this.searchText
     };

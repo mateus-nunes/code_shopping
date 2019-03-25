@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ProductHttpService} from "../../../../services/http/product-http.service";
 import {Product, ProductCategory} from "../../../../model";
 import {ProductCategoryHttpService} from "../../../../services/http/product-category-http.service";
 import {NotifyMessageService} from "../../../../services/notify-message.service";
+import {ProductCategoryDeleteModalComponent} from "../product-category-delete-modal/product-category-delete-modal.component";
 
 @Component({
   selector: 'app-product-category-list',
@@ -15,6 +16,9 @@ export class ProductCategoryListComponent implements OnInit {
   productId: number = null;
   product: Product = null;
   productCategory: ProductCategory = null;
+
+  @ViewChild(ProductCategoryDeleteModalComponent)
+  productCategoryDeleteModal: ProductCategoryDeleteModalComponent;
 
   constructor(
       private route: ActivatedRoute,
@@ -44,13 +48,27 @@ export class ProductCategoryListComponent implements OnInit {
         })
   }
 
-  onInsertSuccess(productCategory){
-    this.notifyMessage.success('Categoria incluida com sucesso');
+  onInsertSuccess(product, Category){
+    this.notifyMessage.success('Categorias incluidas com sucesso');
     this.getProductCategory();
   }
 
   onInsertError(e){
     console.log(e);
     this.notifyMessage.error('Houve um erro desconhecido ao incluir a categoria');
+  }
+
+  onDeleteSuccess(product,category){
+    this.notifyMessage.success('Categoria desvinculada com sucesso');
+    this.getProductCategory();
+  }
+
+  onDeleteError(e){
+    console.log(e);
+    this.notifyMessage.error(`Houve um erro desconhecido ao desvincular a categoria`);
+  }
+
+  showModalDelete(product,category){
+    this.productCategoryDeleteModal.showModal(product,category);
   }
 }

@@ -7,6 +7,7 @@ import {User} from "../../../../model";
 import {UserInsertService} from "./user-insert.service";
 import {UserEditService} from "./user-edit.service";
 import {UserDeleteService} from "./user-delete.service";
+import {SearchParams} from "../../../../services/http/http-resource";
 
 @Component({
   selector: 'app-user-list',
@@ -17,8 +18,12 @@ export class UserListComponent implements OnInit {
 
   users: Array<User> = [];
 
+  sortColumn = {column: 'created_at', sort: 'desc'};
+
+  searchText: string = '';
+
   pagination = {
-    perPage: 15,
+    perPage: 20,
     page: 1,
     totalItems: 0
   };
@@ -48,7 +53,14 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers(){
-    this.userHttp.list({page: this.pagination.page}).subscribe(response => {
+    let searchParams: SearchParams = {
+      page: this.pagination.page,
+      perPage: this.pagination.perPage,
+      sort: this.sortColumn.column === "" ? null : this.sortColumn,
+      search: this.searchText
+    };
+
+    this.userHttp.list(searchParams).subscribe(response => {
       this.users = response.data;
 
       this.pagination.page = response.meta.current_page;
@@ -59,6 +71,17 @@ export class UserListComponent implements OnInit {
 
   pageChanged(page){
     this.pagination.page = page;
+    this.getUsers();
+  }
+
+  sort(){
+    this.pagination.page = 1;
+
+    this.getUsers();
+  }
+
+  search(search){
+    this.searchText = search;
     this.getUsers();
   }
 
