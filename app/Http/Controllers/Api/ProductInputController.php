@@ -3,21 +3,31 @@
 namespace CodeShopping\Http\Controllers\Api;
 
 use CodeShopping\Http\Controllers\Controller;
+use CodeShopping\Http\Filters\ProductInputFilter;
 use CodeShopping\Http\Requests\ProductInputRequest;
 use CodeShopping\Http\Resources\ProductInputResource;
-use CodeShopping\Http\Resources\ProductResource;
-use CodeShopping\Models\Product;
 use CodeShopping\Models\ProductInput;
+use CodeShopping\Traits\OnlyTrashed;
 use Illuminate\Http\Request;
 
 class ProductInputController extends Controller
 {
 
-    public function index()
-    {
-        $inputs = ProductInput::with('product')->paginate(20);
+    use OnlyTrashed;
 
-        return ProductInputResource::collection($inputs);
+    public function index(Request $request)
+    {
+        $filter = app(ProductInputFilter::class);
+
+        $filterQuery = ProductInput::filtered($filter);
+
+        $filterQuery = $this->onlyTrashedIfRequested($filterQuery);
+
+        if($request->has('all')):
+            return ProductInputResource::collection($filterQuery->get());
+        endif;
+
+        return ProductInputResource::collection($filterQuery->paginate(20));
     }
 
     public function store(ProductInputRequest $request)

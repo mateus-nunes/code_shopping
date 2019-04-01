@@ -22,7 +22,9 @@ class CategoryController extends Controller
             return CategoryResource::collection($filterQuery->get());
         endif;
 
-        return CategoryResource::collection($filterQuery->paginate(20));
+        $perPage = $request->has('per-page') ? $request->get('per-page') : 20;
+
+        return CategoryResource::collection($filterQuery->paginate($perPage));
     }
 
 

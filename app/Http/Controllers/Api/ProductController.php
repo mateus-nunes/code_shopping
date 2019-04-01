@@ -23,11 +23,13 @@ class ProductController extends Controller
 
         $filterQuery = $this->onlyTrashedIfRequested($filterQuery);
 
-        if($request->has('all')):
-            return ProductResource::collection($filterQuery->get());
-        endif;
+        $perPage = $request->has('per-page') ? $request->get('per-page') : 20;
 
-        return ProductResource::collection($filterQuery->paginate(20));
+        $products = $filter->hasFilterParameter() ?
+            $filterQuery->get() :
+            $filterQuery->paginate($perPage);
+
+        return ProductResource::collection($products);
     }
 
     public function store(ProductRequest $request)

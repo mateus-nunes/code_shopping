@@ -38,6 +38,12 @@ import { CardErrorComponent } from './components/bootstrap/card-error/card-error
 import { ProductFormComponent } from './components/pages/product/product-form/product-form.component';
 import { ProductCategoryDeleteModalComponent } from './components/pages/product-category/product-category-delete-modal/product-category-delete-modal.component';
 import { UserFormComponent } from './components/pages/user/user-form/user-form.component';
+import { ProductInputFormComponent } from './components/pages/product-input/product-input-form/product-input-form.component';
+import { ProductInputListComponent } from './components/pages/product-input/product-input-list/product-input-list.component';
+import { ProductInputNewModalComponent } from './components/pages/product-input/product-input-new-modal/product-input-new-modal.component';
+import { ProductInputSearchFormComponent } from './components/pages/product-input/product-input-search-form/product-input-search-form.component';
+import {ProductSearchFormComponent} from "./components/pages/product/product-search-form/product-search-form.component";
+import {UserSearchFormComponent} from "./components/pages/user/user-search-form/user-search-form.component";
 
 function jwtFactory(authService: AuthService){
   return {
@@ -81,7 +87,13 @@ function jwtFactory(authService: AuthService){
     CardErrorComponent,
     ProductFormComponent,
     ProductCategoryDeleteModalComponent,
-    UserFormComponent
+    UserFormComponent,
+    UserSearchFormComponent,
+    ProductSearchFormComponent,
+    ProductInputFormComponent,
+    ProductInputListComponent,
+    ProductInputNewModalComponent,
+    ProductInputSearchFormComponent
   ],
   imports: [
     AppRoutingModule,

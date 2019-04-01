@@ -1,0 +1,13 @@
+<div [formGroup]="form">
+  <div class="form-group">
+    <label [for]="fieldsOptions.amount.id">{{ fieldsOptions.amount.label }}</label>
+    <input type="number" name="amount" [id]="fieldsOptions.amount.id" formControlName="amount" IsInvalid class="form-control" placeholder="Informe a quantidade">
+    <field-error [field]="form.get('amount')" [label]="fieldsOptions.amount.label" [messages]="fieldsOptions.amount.validationMessage"></field-error>
+  </div>
+  <div class="form-group">
+    <label [for]="fieldsOptions.product_id.id">{{ fieldsOptions.product_id.label }}</label>
+    <select class="form-control" formControlName="product_id" [id]="fieldsOptions.product_id.id">
+      <option *ngFor="let product of products" [ngValue]="product.id">{{ product.name }}</option>
+    </select>
+  </div>
+</div>

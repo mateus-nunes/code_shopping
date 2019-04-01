@@ -1,0 +1,23 @@
+<form (submit)="submit()">
+  <modal>
+    <h2 modal-title>
+      Nova entrada
+    </h2>
+
+    <div modal-body>
+
+      <card-error *ngIf="showErrors()">
+        <list-error [errors]="errors"></list-error>
+      </card-error>
+
+      <product-input-form [form]="form"></product-input-form>
+
+    </div>
+
+    <div modal-footer>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Salvar</button>
+    </div>
+
+  </modal>
+</form>
