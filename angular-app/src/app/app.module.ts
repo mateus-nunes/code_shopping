@@ -32,7 +32,7 @@ import { SortCollumnComponent } from './components/common/sort-collumn/sort-coll
 import { CategorySearchFormComponent } from './components/pages/category/category-search-form/category-search-form.component';
 import { CategoryFormComponent } from './components/pages/category/category-form/category-form.component';
 import { FieldErrorComponent } from './components/bootstrap/field-error/field-error.component';
-import { IsInvalidDirective } from './directives/is-invalid.directive';
+import {IsInvalidControlDirective, IsInvalidDirective} from './directives/is-invalid.directive';
 import { ListErrorComponent } from './components/bootstrap/list-error/list-error.component';
 import { CardErrorComponent } from './components/bootstrap/card-error/card-error.component';
 import { ProductFormComponent } from './components/pages/product/product-form/product-form.component';
@@ -44,6 +44,7 @@ import { ProductInputNewModalComponent } from './components/pages/product-input/
 import { ProductInputSearchFormComponent } from './components/pages/product-input/product-input-search-form/product-input-search-form.component';
 import {ProductSearchFormComponent} from "./components/pages/product/product-search-form/product-search-form.component";
 import {UserSearchFormComponent} from "./components/pages/user/user-search-form/user-search-form.component";
+import {Select2Module} from "ng2-select2";
 
 function jwtFactory(authService: AuthService){
   return {
@@ -83,6 +84,7 @@ function jwtFactory(authService: AuthService){
     CategoryFormComponent,
     FieldErrorComponent,
     IsInvalidDirective,
+    IsInvalidControlDirective,
     ListErrorComponent,
     CardErrorComponent,
     ProductFormComponent,
@@ -102,6 +104,7 @@ function jwtFactory(authService: AuthService){
     ReactiveFormsModule,
     HttpClientModule,
     NgxPaginationModule,
+    Select2Module,
     JwtModule.forRoot({
       jwtOptionsProvider: {
         provide: JWT_OPTIONS,

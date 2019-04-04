@@ -1,8 +1,9 @@
-import {ChangeDetectorRef, Component, Input, OnChanges, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {FormGroup} from "@angular/forms";
 import fieldOptionsProductInput from "../../product-input/product-input-form/fieldsOptions";
 import {Product} from "../../../../model";
-import {ProductHttpService} from "../../../../services/http/product-http.service";
+import {ProductIdFieldService} from "./product-id-field.service";
+import {Select2Component} from "ng2-select2";
 
 @Component({
   selector: 'product-input-form',
@@ -15,10 +16,13 @@ export class ProductInputFormComponent implements OnInit, OnChanges {
   @Input()
   form: FormGroup;
 
-  constructor(private productHttp: ProductHttpService, private changeRef: ChangeDetectorRef) { }
+  @ViewChild(Select2Component, {read: ElementRef})
+  select2Element: ElementRef;
+
+  constructor(private changeRef: ChangeDetectorRef, public productIdField: ProductIdFieldService) { }
 
   ngOnInit() {
-    this.getProducts();
+    this.productIdField.make(this.select2Element, this.form.get('product_id'));
   }
 
   ngOnChanges(): void {
@@ -27,11 +31,5 @@ export class ProductInputFormComponent implements OnInit, OnChanges {
 
   get fieldsOptions(){
     return fieldOptionsProductInput;
-  }
-
-  getProducts(){
-    this.productHttp.list({all: true, sort:{column: 'name',sort:'asc'}}).subscribe((response) => {
-      this.products = response.data;
-    })
   }
 }

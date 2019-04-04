@@ -43,7 +43,7 @@ export class ProductInputNewModalComponent implements OnInit {
         .subscribe((input:ProductInput) => {
               this.form.reset({
                 amount: '',
-                product_id: ''
+                product_id: null
               });
 
               this.modal.hide();
