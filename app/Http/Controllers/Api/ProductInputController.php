@@ -23,11 +23,13 @@ class ProductInputController extends Controller
 
         $filterQuery = $this->onlyTrashedIfRequested($filterQuery);
 
-        if($request->has('all')):
-            return ProductInputResource::collection($filterQuery->get());
-        endif;
+        $perPage = $request->has('per-page') ? $request->get('per-page') : 20;
 
-        return ProductInputResource::collection($filterQuery->paginate(20));
+        $inputs = $filter->hasFilterParameter() ?
+            $filterQuery->get() :
+            $filterQuery->paginate($perPage);
+
+        return ProductInputResource::collection($inputs);
     }
 
     public function store(ProductInputRequest $request)

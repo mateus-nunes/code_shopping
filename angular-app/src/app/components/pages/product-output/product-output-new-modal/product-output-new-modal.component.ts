@@ -2,16 +2,16 @@ import {Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core'
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ModalComponent} from "../../../bootstrap/modal/modal.component";
 import {HttpErrorResponse} from "@angular/common/http";
-import {ProductInput} from "../../../../model";
-import fieldOptionsProductInput from "../../product-input/product-input-form/fieldsOptions";
-import {ProductInputHttpService} from "../../../../services/http/product-input-http.service";
+import {ProductOutput} from "../../../../model";
+import fieldOptionsProductOutput from "../../product-output/product-output-form/fieldsOptions";
+import {ProductOutputHttpService} from "../../../../services/http/product-output-http.service";
 
 @Component({
-  selector: 'product-input-new-modal',
-  templateUrl: './product-input-new-modal.component.html',
-  styleUrls: ['./product-input-new-modal.component.scss']
+  selector: 'product-output-new-modal',
+  templateUrl: './product-output-new-modal.component.html',
+  styleUrls: ['./product-output-new-modal.component.scss']
 })
-export class ProductInputNewModalComponent implements OnInit {
+export class ProductOutputNewModalComponent implements OnInit {
 
   form: FormGroup;
 
@@ -23,7 +23,7 @@ export class ProductInputNewModalComponent implements OnInit {
   @Output() onSuccess: EventEmitter<any> = new EventEmitter<any>();
   @Output() onError: EventEmitter<HttpErrorResponse> = new EventEmitter<HttpErrorResponse>();
 
-  constructor(private productInputHttp: ProductInputHttpService, private formBuilder: FormBuilder) {
+  constructor(private productOutputHttp: ProductOutputHttpService, private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       amount: ['',[Validators.required, Validators.min(this.fieldsOptions.amount.validationMessage.min)]],
       product_id: ['',[Validators.required]],
@@ -38,15 +38,15 @@ export class ProductInputNewModalComponent implements OnInit {
   }
 
   submit(){
-    this.productInputHttp.create(this.form.value)
-        .subscribe((input:ProductInput) => {
+    this.productOutputHttp.create(this.form.value)
+        .subscribe((output:ProductOutput) => {
               this.form.reset({
                 amount: '',
                 product_id: null
               });
 
               this.modal.hide();
-              this.onSuccess.emit(input);
+              this.onSuccess.emit(output);
             },
             responseError => {
               console.log(responseError);
@@ -60,7 +60,7 @@ export class ProductInputNewModalComponent implements OnInit {
   }
 
   get fieldsOptions(){
-    return fieldOptionsProductInput;
+    return fieldOptionsProductOutput;
   }
 
   showErrors(){

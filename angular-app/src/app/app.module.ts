@@ -45,6 +45,10 @@ import { ProductInputSearchFormComponent } from './components/pages/product-inpu
 import {ProductSearchFormComponent} from "./components/pages/product/product-search-form/product-search-form.component";
 import {UserSearchFormComponent} from "./components/pages/user/user-search-form/user-search-form.component";
 import {Select2Module} from "ng2-select2";
+import { ProductOutputListComponent } from './components/pages/product-output/product-output-list/product-output-list.component';
+import { ProductOutputNewModalComponent } from './components/pages/product-output/product-output-new-modal/product-output-new-modal.component';
+import { ProductOutputFormComponent } from './components/pages/product-output/product-output-form/product-output-form.component';
+import { ProductOutputSearchFormComponent } from './components/pages/product-output/product-output-search-form/product-output-search-form.component';
 
 function jwtFactory(authService: AuthService){
   return {
@@ -95,7 +99,11 @@ function jwtFactory(authService: AuthService){
     ProductInputFormComponent,
     ProductInputListComponent,
     ProductInputNewModalComponent,
-    ProductInputSearchFormComponent
+    ProductInputSearchFormComponent,
+    ProductOutputListComponent,
+    ProductOutputNewModalComponent,
+    ProductOutputFormComponent,
+    ProductOutputSearchFormComponent
   ],
   imports: [
     AppRoutingModule,
