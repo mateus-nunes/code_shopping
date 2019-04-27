@@ -9,6 +9,7 @@ import {ProductListComponent} from "./components/pages/product/product-list/prod
 import {ProductCategoryListComponent} from "./components/pages/product-category/product-category-list/product-category-list.component";
 import {ProductInputListComponent} from "./components/pages/product-input/product-input-list/product-input-list.component";
 import {ProductOutputListComponent} from "./components/pages/product-output/product-output-list/product-output-list.component";
+import {ProductPhotoManagerComponent} from "./components/pages/product-photo-manager/product-photo-manager/product-photo-manager.component";
 
 
 const routes: Routes = [
@@ -40,6 +41,11 @@ const routes: Routes = [
   {
     path: 'products/:productId/categories/list',
     component: ProductCategoryListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'products/:productId/photos/manager',
+    component: ProductPhotoManagerComponent,
     canActivate: [AuthGuard]
   },
   {
